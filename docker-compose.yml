@@ -8,6 +8,8 @@ services:
     environment:
       - POSTGRES_USER=$SERVICE_USER_POSTGRES
       - POSTGRES_PASSWORD=$SERVICE_PASSWORD_POSTGRES
+    expose:
+      - 5432
     networks:
       - zep-network
     volumes:
@@ -21,6 +23,8 @@ services:
   nlp:
     image: ghcr.io/getzep/zep-nlp-server:latest
     restart: on-failure
+    expose:
+      - 5557
     networks:
       - zep-network
     healthcheck:
@@ -38,6 +42,8 @@ services:
         condition: service_healthy
       nlp:
         condition: service_healthy
+    expose:
+      - 8000
     volumes:
       - ./config.yaml:/app/config.yaml
     environment:
